@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gloria Jean's Coffees Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fffaf3;
+    }
+    .header {
+      height: 560px;
+      background: url('glorea.png') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+    }
+    .header h1 {
+      color: white;
+      font-size: 60px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      animation: fadeInUp 2s ease-in-out;
+    }
+    .steam {
+      position: absolute;
+      top: 100px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255,255,255,0.5), transparent);
+      animation: steamRise 4s infinite ease-in-out;
+      opacity: 0.5;
+      border-radius: 50%;
+    }
+    @keyframes steamRise {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-40px); opacity: 0.8; }
+      100% { transform: translateY(-80px); opacity: 0; }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: #6f4e37;
+      color: white;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .tab:hover, .tab.active {
+      background: #8d6e52;
+    }
+    .menu-section {
+      display: none;
+      max-width: 1000px;
+      margin: 0 auto;
+      animation: fadeIn 1s ease-in;
+    }
+    .menu-section.active {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .item {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .item:hover {
+      transform: scale(1.05);
+    }
+    .order-btn {
+      background: #6f4e37;
+      color: white;
+      padding: 8px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #orderModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    #orderModal .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+    }
+    .reservation {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="steam"></div>
+    <h1>☕ Gloria Jean’s Coffees</h1>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showMenu('breakfast')">Breakfast</div>
+    <div class="tab" onclick="showMenu('brunch')">Brunch</div>
+    <div class="tab" onclick="showMenu('lunch')">Lunch</div>
+    <div class="tab" onclick="showMenu('dinner')">Dinner</div>
+  </div>
+
+  <div id="breakfast" class="menu-section active">
+    <div class="item">Paratha Roll <button class="order-btn" onclick="addToOrder('Paratha Roll')">Order</button></div>
+    <div class="item">Halwa Puri <button class="order-btn" onclick="addToOrder('Halwa Puri')">Order</button></div>
+    <div class="item">Chana Masala <button class="order-btn" onclick="addToOrder('Chana Masala')">Order</button></div>
+    <div class="item">Boiled Eggs <button class="order-btn" onclick="addToOrder('Boiled Eggs')">Order</button></div>
+    <div class="item">Doodh Patti <button class="order-btn" onclick="addToOrder('Doodh Patti')">Order</button></div>
+    <div class="item">Toast & Jam <button class="order-btn" onclick="addToOrder('Toast & Jam')">Order</button></div>
+  </div>
+
+  <div id="brunch" class="menu-section">
+    <div class="item">Chicken Sandwich <button class="order-btn" onclick="addToOrder('Chicken Sandwich')">Order</button></div>
+    <div class="item">Omelette Wrap <button class="order-btn" onclick="addToOrder('Omelette Wrap')">Order</button></div>
+    <div class="item">Masala Fries <button class="order-btn" onclick="addToOrder('Masala Fries')">Order</button></div>
+    <div class="item">Nuggets <button class="order-btn" onclick="addToOrder('Nuggets')">Order</button></div>
+    <div class="item">Fruit Chaat <button class="order-btn" onclick="addToOrder('Fruit Chaat')">Order</button></div>
+    <div class="item">Cold Coffee <button class="order-btn" onclick="addToOrder('Cold Coffee')">Order</button></div>
+  </div>
+
+  <div id="lunch" class="menu-section">
+    <div class="item">Chicken Biryani <button class="order-btn" onclick="addToOrder('Chicken Biryani')">Order</button></div>
+    <div class="item">Karahi <button class="order-btn" onclick="addToOrder('Karahi')">Order</button></div>
+    <div class="item">Roti & Daal <button class="order-btn" onclick="addToOrder('Roti & Daal')">Order</button></div>
+    <div class="item">Qeema Paratha <button class="order-btn" onclick="addToOrder('Qeema Paratha')">Order</button></div>
+    <div class="item">Yogurt Salad <button class="order-btn" onclick="addToOrder('Yogurt Salad')">Order</button></div>
+    <div class="item">Pepsi <button class="order-btn" onclick="addToOrder('Pepsi')">Order</button></div>
+  </div>
+
+  <div id="dinner" class="menu-section">
+    <div class="item">BBQ Tikka <button class="order-btn" onclick="addToOrder('BBQ Tikka')">Order</button></div>
+    <div class="item">Beef Korma <button class="order-btn" onclick="addToOrder('Beef Korma')">Order</button></div>
+    <div class="item">Naan <button class="order-btn" onclick="addToOrder('Naan')">Order</button></div>
+    <div class="item">Seekh Kabab <button class="order-btn" onclick="addToOrder('Seekh Kabab')">Order</button></div>
+    <div class="item">Mint Raita <button class="order-btn" onclick="addToOrder('Mint Raita')">Order</button></div>
+    <div class="item">Kheer <button class="order-btn" onclick="addToOrder('Kheer')">Order</button></div>
+  </div>
+
+  <div id="orderModal">
+    <div class="modal-content">
+      <h3>Your Order</h3>
+      <ul id="orderList"></ul>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <div class="reservation">
+    <h2>Make a Reservation</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+      <input type="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+      <input type="datetime-local" required style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+      <button type="submit" style="padding: 10px 20px; background: #6f4e37; color: white; border: none; border-radius: 5px;">Reserve</button>
+    </form>
+  </div>
+  <h2 style="text-align:center; margin-top:40px;">📍 Our Location</h2>
+<iframe 
+  src="https://www.google.com/maps?q=Glorea+Jeans+Multan&output=embed" 
+  allowfullscreen="" loading="lazy">
+</iframe>
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const sections = document.querySelectorAll('.menu-section');
+
+    function showMenu(id) {
+      tabs.forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    function addToOrder(item) {
+      const list = document.getElementById('orderList');
+      const li = document.createElement('li');
+      li.textContent = item;
+      list.appendChild(li);
+      document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
